@@ -1,0 +1,24 @@
+package JavaBasics;
+
+import java.util.Scanner;
+
+public class Middle {
+	public static void main(String[] args) {
+		System.out.println("Enter a strin: ");
+		Scanner scan=new Scanner(System.in);
+		String str=scan.nextLine();
+		int len=str.length();
+		int mid=len/2;
+		midChar(len,mid,str);
+	}
+		public static void midChar(int len,int mid,String str) {
+		
+		if(len%2==0)
+			System.out.println(str.charAt(mid-1)+""+str.charAt(mid));
+		else
+			System.out.println(str.charAt(mid));
+	}
+	
+}
+
+
