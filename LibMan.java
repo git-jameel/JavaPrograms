@@ -47,6 +47,7 @@ public class LibMan {
 			System.out.println("2. Add Books");
 			System.out.println("3. Update Books");
 			System.out.println("4. Delete Books");
+			System.out.println("5. Exit");
 			System.out.println("Select any of 4: ");
 			int n1 = scan.nextInt();
 			switch (n1) {
@@ -60,10 +61,12 @@ public class LibMan {
 				Admin.update();
 				break;
 			case 4:
-				// Admin.delete();
+				Admin.delete();
+				break;
+			case 5:
 				break;
 			default:
-				System.out.println("Enter any of 4 only: ");
+				System.out.println("Enter any of 5 only: ");
 				break;
 			}
 		}
@@ -97,8 +100,8 @@ public class LibMan {
 				newStock[i] = scan.nextInt();
 			}
 			name = getBookNames(name, newName);
-			price = getBookPrices(price, newPrice);
-			stock = getBookStocks(stock, newStock);
+			price = getBookPricesOrStocks(price, newPrice);
+			stock = getBookPricesOrStocks(stock, newStock);
 			System.out.println("BookId" + "\tname" + "\tPrice" + "\tStock");
 			for (int i = 1; i <= name.length; i++) {
 				System.out.print(i + "\t" + name[i - 1] + "\t" + price[i - 1] + "\t" + stock[i - 1] + "\n");
@@ -110,24 +113,27 @@ public class LibMan {
 			Scanner scan=new Scanner(System.in);
 			System.out.println("Which book do you want to update: ");
 			int newn=scan.nextInt();
-			System.out.println("1."+name[newn]+"/t"+"2."+price[newn]+"/t"+"3."+stock[newn]+"/t");
+			System.out.println("1."+name[newn-1]+"  "+"2."+price[newn-1]+"  "+"3."+stock[newn-1]);
 			int num=scan.nextInt();
 			switch(num)
 			{
 				case 1:
 					System.out.println("Enter new bookname: ");
 					String updatename=scan.next();
-					updatename=name[newn];
+					name[newn-1]=updatename;
+					System.out.println("Updated sucessfully..");
 					break;
 				case 2:
 					System.out.println("Enter new price: ");
 					int updateprice=scan.nextInt();
-					updateprice=price[newn];
+					price[newn-1]=updateprice;
+					System.out.println("Updated sucessfully..");
 					break;
 				case 3:
-					System.out.println("Enter new price: ");
+					System.out.println("Enter new stock: ");
 					int updatestock=scan.nextInt();
-					updatestock=stock[newn];
+					stock[newn-1]=updatestock;
+					System.out.println("Updated sucessfully..");
 					break;
 					
 			}
@@ -135,9 +141,15 @@ public class LibMan {
 		}
 		public static void delete()
 		{
-			
+			Scanner scan=new Scanner(System.in);
+			System.out.println("Enter the book id u want to delete: ");
+			int id=scan.nextInt();
+			name = deleteName(id, name);
+			price = deletePriceOrStock(id, price);
+			stock = deletePriceOrStock(id, stock);
+			System.out.println("deleted sucessfully..");
+			Admin.choose();
 		}
-		
 		
 
 		private static void initializeObjects() {
@@ -171,7 +183,7 @@ public class LibMan {
 			return nameUpdated;
 		}
 
-		public static int[] getBookPrices(int[] price, int[] newPrice) {
+		public static int[] getBookPricesOrStocks(int[] price, int[] newPrice) {
 			int size = newPrice.length + price.length;
 			int[] priceUpdated = new int[size];
 			for (int i = 0; i < size; i++) {
@@ -184,17 +196,29 @@ public class LibMan {
 			return priceUpdated;
 		}
 
-		public static int[] getBookStocks(int[] stock, int[] newStock) {
-			int size = newStock.length + stock.length;
-			int[] stockUpdated = new int[size];
-			for (int i = 0; i < stockUpdated.length; i++) {
-				if (i < stock.length) {
-					stockUpdated[i] = stock[i];
-				} else {
-					stockUpdated[i] = newStock[i - stock.length];
-				}
-			}
-			return stockUpdated;
-		}
 	}
+	
+	public static String[] deleteName(int id, String[] name) {
+			    String[] afterDeletedNameArray = new String[name.length - 1];
+			    for(int i=0, j=0;i<name.length;i++) {
+			        if(i == (id-1)) {
+			            continue;
+			        }
+			           afterDeletedNameArray[j++] = name[i];
+			        
+			}
+			return afterDeletedNameArray;
+        }
+       
+        public static int[] deletePriceOrStock(int id, int[] priceOrStock) {
+			    int[] afterDeletedPriceOrStock = new int[priceOrStock.length -1];
+			    for(int i=0, j=0;i<priceOrStock.length;i++) {
+			        if(i == (id-1)) {
+			            continue;
+			        }
+			     afterDeletedPriceOrStock[j++] = priceOrStock[i];
+			}
+			return afterDeletedPriceOrStock;
+        }
+        
 }
