@@ -1,131 +1,217 @@
 import java.util.*;
-public class RailwayReservation
-{
-	 static int lowerc=2;
-	 static int middlec=2;
-	 static int upperc=2;
-	 static int racc=2;
-	 static int wlc=2;
-	public static void main(String args[]){
-		Scanner scan=new Scanner(System.in);
+
+public class RailwayReservation {
+	static int lowerc = 2;
+	static int middlec = 2;
+	static int upperc = 2;
+	static int racc = 2;
+	static int wlc = 2;
+	static String[] name;
+	static int[] age;
+	static String[] gender;
+	static String[] berth;
+
+	public static void main(String args[]) {
+		Scanner scan = new Scanner(System.in);
 		System.out.println("Signin: ");
 		System.out.println("Enter username: ");
-		String Uname=scan.nextLine();
+		String Uname = scan.nextLine();
 		System.out.println("Enter password: ");
-		String password=scan.nextLine();
-		if(password.length()>=6){
+		String password = scan.nextLine();
+		if (password.length() >= 6) {
 			System.out.println("Signin successfull...");
-			RailwayReservation.choose(upperc,middlec,lowerc);}
+			RailwayReservation.choose(upperc, middlec, lowerc);
+		}
 	}
-		public static void choose(int upperc,int middlec,int lowerc){
-		Scanner scan=new Scanner(System.in);
+
+	public static void choose(int upperc, int middlec, int lowerc) {
+		Scanner scan = new Scanner(System.in);
 		System.out.println("1.Book tickets | 2.Cancel tickets | 3.Availabe tickets | 4.Print tickets | 5.Exit");
-		int c=scan.nextInt();
-		switch(c){
-			case 1:
-				RailwayReservation.bookTickets();
-				break;
-			case 2:
-				RailwayReservation.cancelTickets();
-				break;
-			case 3:
-				RailwayReservation.availableTickets();
-				break;
-			case 4:
-				//RailwayReservation.printTickets;
-				break;
-			case 5:
-				break;
-				
-			}
-		}
-		private static void cancelTickets() {
-			// TODO Auto-generated method stub
-			
-		}
-		public static void bookTickets(){
-			Scanner scan = new Scanner(System.in);
-			System.out.println("Enter From location: ");
-			String from=scan.nextLine();
-			System.out.println("Enter To location: ");
-			String to=scan.nextLine();
-			System.out.println("How many tickets do you want to book? ");
-			int n = scan.nextInt();
-			//if (name == null) {
-				//initializeObjects();
-			System.out.println("Enter Name, Age, Gender, birth in order: ");
-			String[] newName = new String[n];
-			int[] newAge = new int[n];
-			String[] newGender = new String[n];
-			String[] newBirth=new String[n];
-			for (int i = 1; i <=n; i++) {
-				newName[i-1] = scan.next();
-				newAge[i-1] = scan.nextInt();
-				newGender[i-1] = scan.next();
-				newBirth[i-1]=scan.next();
-				if(newBirth[i-1]=="lower"){
-					lowerc--;
-					if(lowerc<1){
-						newBirth[i-1]="middle";
-						middlec--;
-				}
-					}
-				else if(newBirth[i-1]=="middle"){
-					middlec--;
-					if(middlec<1){
-						newBirth[i-1]="upper";
-						upperc--;
-					}
-						}
-				else if(newBirth[i-1]=="upper"){
-					upperc--;
-					if(upperc<1){
-						newBirth[i-1]="rac";
-					}
-				}
+		int c = scan.nextInt();
+		switch (c) {
+		case 1:
+			RailwayReservation.bookTickets();
+			break;
+		case 2:
+			RailwayReservation.cancelTickets();
+			break;
+		case 3:
+			RailwayReservation.availableTickets();
+			break;
+		case 4:
+			// RailwayReservation.printTickets;
+			break;
+		case 5:
+			break;
 
-				else if(newBirth[i-1]=="wl"){
-					wlc--;
-					if(wlc<1){
-						System.out.println("Ticket not available..");
-					}
-			}
-				}
-			System.out.println("Booked Sucessfully...");
-			//newName=getNamesGenderBirth(newName,newGender, newBirth);
-			System.out.println("seat\t"+"Name\t"+"Age\t"+"Gender\t"+"Birth");
-			for(int k=1;k<=newName.length;k++)
-			{
-				System.out.println(k+"\t"+newName[k-1]+"\t"+newAge[k-1]+"\t"+newGender[k-1]+"\t"+newBirth[k-1]);
 		}
-			RailwayReservation.choose(upperc,middlec,lowerc);
-		}
-		public static void availableTickets(){
-		Scanner scan=new Scanner(System.in);
-		System.out.println("Available Tickets.... ");
-		System.out.println("lower="+lowerc+"\nmiddle="+middlec+"\nupper="+upperc+"\nrac="+racc+"\nwl="+wlc+"\n1. BookTickets"+"\n2.Exit");
-		int d=scan.nextInt();
-		switch(d){
-			case 1:
-				RailwayReservation.bookTickets();
-				break;
-			case 2:
-				break;
-			}
-		}
-
-public class AdminParent extends RailwayReservation {
-	public String[] getNamesGenderBirth(String[] newName, String[] newGender, String[] newBirth) {
-		int size = newName.length+newName.length;
-		String[] nameUpdated = new String[size];
-		for (int i = 0; i < size; i++) {
-			if (i < newName.length) 
-				nameUpdated[i] = newName[i];
-			}
-		return nameUpdated;
 	}
-}
-		//public static void initializeObjects(){
-			//int lower[]=new int[2];
-		
+
+	private static void cancelTickets() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void bookTickets() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter From location: ");
+		String from = scan.nextLine();
+		System.out.println("Enter To location: ");
+		String to = scan.nextLine();
+		System.out.println("How many tickets do you want to book? ");
+		int n = scan.nextInt();
+		// if (name == null) {
+		// initializeObjects();
+		System.out.println("Enter Name, Age, Gender, birth in order: ");
+		String newName;
+		int newAge;
+		String newGender;
+		String newBirth;
+		for (int i = 0; i < n; i++) {
+			newName = scan.next();
+			newAge = scan.nextInt();
+			newGender = scan.next();
+			newBirth = scan.next();
+			name = updatedName(name, newName);
+			age = updatedAge(age, newAge);
+			gender = updatedGender(gender, newGender);
+
+			if (newBirth.equals("lower")) {
+				if (lowerc > 0) {
+					berth = updatedBerth(berth, newBirth);
+					lowerc--;
+				} else if (middlec > 0) {
+					berth = updatedBerth(berth, "middle");
+					middlec--;
+				} else if (upperc > 0) {
+					berth = updatedBerth(berth, "upper");
+					upperc--;
+				} else if (racc > 0) {
+					berth = updatedBerth(berth, "racc");
+					racc--;
+				} else if (wlc > 0) {
+					berth = updatedBerth(berth, "wlc");
+					wlc--;
+				}
+			}
+
+			if (newBirth.equals("middle")) {
+				if (middlec > 0) {
+					berth = updatedBerth(berth, newBirth);
+					middlec--;
+				} else if (upperc > 0) {
+					berth = updatedBerth(berth, "upper");
+					upperc--;
+				} else if (racc > 0) {
+					berth = updatedBerth(berth, "racc");
+					racc--;
+				} else if (wlc > 0) {
+					berth = updatedBerth(berth, "wlc");
+					wlc--;
+				}
+			}
+
+			if (newBirth.equals("upper")) {
+				if (upperc > 0) {
+					berth = updatedBerth(berth, newBirth);
+					upperc--;
+				} else if (racc > 0) {
+					berth = updatedBerth(berth, "racc");
+					racc--;
+				} else if (wlc > 0) {
+					berth = updatedBerth(berth, "wlc");
+					wlc--;
+				}
+			}
+
+			if (upperc < 1 && middlec < 1 && upperc < 1 && racc < 1 && wlc < 1) {
+				System.out.println("No Tickets!");
+			}
+		}
+		System.out.println("Booked Sucessfully...");
+		// newName=getNamesGenderBirth(newName,newGender, newBirth);
+		System.out.println("seat\t" + "Name\t" + "Age\t" + "Gender\t" + "Birth");
+		for (int k = 1; k <= name.length; k++) {
+			System.out.println(k + "\t" + name[k - 1] + "\t" + age[k - 1] + "\t" + gender[k - 1] + "\t" + berth[k - 1]);
+		}
+		RailwayReservation.choose(upperc, middlec, lowerc);
+	}
+
+	private static String[] updatedBerth(String[] existingBerth, String string) {
+		if (existingBerth == null) {
+			existingBerth = new String[0];
+		}
+		String[] berth = new String[existingBerth.length + 1];
+		for (int i = 0; i < existingBerth.length; i++) {
+			berth[i] = existingBerth[i];
+		}
+		berth[existingBerth.length] = string;
+		return berth;
+	}
+
+	private static String[] updatedGender(String[] existingGender, String string) {
+		if (existingGender == null) {
+			existingGender = new String[0];
+		}
+		String[] gender = new String[existingGender.length + 1];
+		for (int i = 0; i < existingGender.length; i++) {
+			gender[i] = existingGender[i];
+		}
+		gender[existingGender.length] = string;
+		return gender;
+	}
+
+	private static int[] updatedAge(int[] existingAge, int number) {
+		if (existingAge == null) {
+			existingAge = new int[0];
+		}
+		int[] age = new int[existingAge.length + 1];
+		for (int i = 0; i < existingAge.length; i++) {
+			age[i] = existingAge[i];
+		}
+		age[existingAge.length] = number;
+		return age;
+	}
+
+	private static String[] updatedName(String[] existingName, String string) {
+		if (existingName == null) {
+			existingName = new String[0];
+		}
+		String[] name = new String[existingName.length + 1];
+		for (int i = 0; i < existingName.length; i++) {
+			name[i] = existingName[i];
+		}
+		name[existingName.length] = string;
+		return name;
+	}
+
+	public static void availableTickets() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Available Tickets.... ");
+		System.out.println("lower=" + lowerc + "\nmiddle=" + middlec + "\nupper=" + upperc + "\nrac=" + racc + "\nwl="
+				+ wlc + "\n1. BookTickets" + "\n2.Exit");
+		int d = scan.nextInt();
+		switch (d) {
+		case 1:
+			RailwayReservation.bookTickets();
+			break;
+		case 2:
+			break;
+		}
+	}
+
+	public class AdminParent extends RailwayReservation {
+		public String[] getNamesGenderBirth(String[] newName, String[] newGender, String[] newBirth) {
+			int size = newName.length + newName.length;
+			String[] nameUpdated = new String[size];
+			for (int i = 0; i < size; i++) {
+				if (i < newName.length)
+					nameUpdated[i] = newName[i];
+			}
+			return nameUpdated;
+		}
+	}
+	// public static void initializeObjects(){
+	// int lower[]=new int[2];
+
 }
