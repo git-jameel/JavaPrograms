@@ -1,3 +1,5 @@
+package JavaBasics;
+
 import java.util.*;
 
 public class RailwayReservation {
@@ -75,7 +77,7 @@ public class RailwayReservation {
 			name = updatedName(name, newName);
 			age = updatedAge(age, newAge);
 			gender = updatedGender(gender, newGender);
-
+		if(newAge>=60)
 			if (newBirth.equals("lower")) {
 				if (lowerc > 0) {
 					berth = updatedBerth(berth, newBirth);
@@ -189,7 +191,7 @@ public class RailwayReservation {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Available Tickets.... ");
 		System.out.println("lower=" + lowerc + "\nmiddle=" + middlec + "\nupper=" + upperc + "\nrac=" + racc + "\nwl="
-				+ wlc + "\n1. BookTickets" + "\n2.Exit");
+				+ wlc + "\n\n1. BookTickets" + "\n2.Exit");
 		int d = scan.nextInt();
 		switch (d) {
 		case 1:
@@ -200,7 +202,7 @@ public class RailwayReservation {
 		}
 	}
 
-	public class AdminParent extends RailwayReservation {
+	/*public class AdminParent extends RailwayReservation {
 		public String[] getNamesGenderBirth(String[] newName, String[] newGender, String[] newBirth) {
 			int size = newName.length + newName.length;
 			String[] nameUpdated = new String[size];
@@ -208,9 +210,7 @@ public class RailwayReservation {
 				if (i < newName.length)
 					nameUpdated[i] = newName[i];
 			}
-			return nameUpdated;
-		}
-	}
+			return nameUpdated;*/
 	// public static void initializeObjects(){
 	// int lower[]=new int[2];
 
