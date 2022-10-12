@@ -1,3 +1,5 @@
+package JavaBasics;
+
 import java.util.*;
 
 public class RailwayReservation {
@@ -13,7 +15,7 @@ public class RailwayReservation {
 	static int[] pnr;
 	static String from="chennai";
 	static String to="madurai";
-	static int pnr1=11220;
+	static int pnr1=11990;
 	public static void main(String args[]) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Signin: ");
@@ -42,7 +44,7 @@ public class RailwayReservation {
 			RailwayReservation.availableTickets();
 			break;
 		case 4:
-			// RailwayReservation.printTickets;
+			RailwayReservation.printTickets(berth, age, berth, berth, age);
 			break;
 		case 5:
 			break;
@@ -70,7 +72,7 @@ public class RailwayReservation {
 		System.out.println("How many tickets do you want to book? ");
 		int n = scan.nextInt();
 		if(n<=10){
-		//System.out.println("Enter Name, Age, Gender(m/f), berth(lower,middle,upper,nobirth) in order: ");
+		//System.out.println("Enter Name, Age, Gender(m/f), berth(lower,middle,upper,noberth) in order: ");
 		String newName;
 		int newAge;
 		String newGender;
@@ -84,10 +86,10 @@ public class RailwayReservation {
 			newGender = scan.next();
 			System.out.println("Enter berth(lower,middle,upper,nobirth): ");
 			newBirth = scan.next();
-			pnr[i]=pnr1;
 			name = updatedName(name, newName);
 			age = updatedAge(age, newAge);
 			gender = updatedGender(gender, newGender);
+			pnr=updatedPnr(pnr,pnr1);
 			if(newAge>=60)
 				newBirth="lower";
 			if(newAge<=10)
@@ -160,19 +162,19 @@ public class RailwayReservation {
 				break;
 			}
 		}
-		pnr1+=1;
 		System.out.println("Booked Sucessfully...");
-		RailwayReservation.show(name,age,gender,berth,pnr);
+		pnr1+=1;
+		RailwayReservation.printTickets(name,age,gender,berth,pnr);
 		}
 		else{
 			System.out.println("only 10 tickets avaialble...");
 			RailwayReservation.bookTickets();
 		}
 	}
-	public static void show(String[] name2, int[] age2, String[] gender2, String[] berth2,int[] pnr2){
+	public static void printTickets(String[] name2, int[] age2, String[] gender2, String[] berth2,int[] pnr2){
 		System.out.println("seat\t" +"PNR no.\t"+ "Name\t" + "Age\t" + "Gender\t" + "Berth");
 		for (int k = 1; k <= name2.length; k++) {
-			System.out.println(k + "\t" +pnr2+ "\t" + name2[k - 1] + "\t" + age2[k - 1] + "\t" + gender2[k - 1] + "\t" + berth2[k - 1]);
+			System.out.println(k + "\t" +pnr2[k-1]+ "\t" + name2[k - 1] + "\t" + age2[k - 1] + "\t" + gender2[k - 1] + "\t" + berth2[k - 1]);
 		}
 		RailwayReservation.choose(upperc, middlec, lowerc);
 	}
@@ -185,7 +187,7 @@ public class RailwayReservation {
 		gender=deleteNameOrGender(d,gender);
 		berth=deleteBerth(d,berth);
 		System.out.println("Deleted sucessfully: ");
-		RailwayReservation.show(name,age,gender,berth,pnr);
+		RailwayReservation.printTickets(name,age,gender,berth,pnr);
 		RailwayReservation.choose(upperc, middlec, lowerc);
 	}
 	
@@ -236,6 +238,18 @@ public class RailwayReservation {
 		name[existingName.length] = string;
 		return name;
 	}
+	public static int[] updatedPnr(int[] existingPnr, int num) {
+		if (existingPnr == null) {
+			existingPnr = new int[0];
+		}
+		int[] pnr = new int[existingPnr.length + 1];
+		for (int i = 0; i < existingPnr.length; i++) {
+			pnr[i] = existingPnr[i];
+		}
+		pnr[existingPnr.length] = num;
+		return pnr;
+	}
+
 	
 	private static String[] deleteNameOrGender(int d, String[] nameOrGender) {
 		String[] afterDeletedNameArray = new String[nameOrGender.length - 1];
@@ -278,5 +292,4 @@ public class RailwayReservation {
 	}
 	
 
-}
 }
