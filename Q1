@@ -1,0 +1,26 @@
+import java.util.*;
+public class Q1
+{
+	public static void main(String args[])
+	{
+		int newn=0;
+		int newn1=0;
+		int store=0;
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter no. of elements in array: ");
+		int n=scan.nextInt();
+		int arr[]=new int[10];
+		System.out.println("Enter elements of array: ");
+		for(int i=0;i<n;i++)
+		{
+			arr[i]=scan.nextInt();
+		}
+		for(int j=0;j<arr.length-1;j++){
+			newn=arr[j]*10+arr[j+1];
+			store=newn;
+			newn1=store*10+arr[j+2];
+			break;
+		}
+		System.out.println(newn1+1);
+}
+}
