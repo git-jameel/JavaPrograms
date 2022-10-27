@@ -1,0 +1,51 @@
+package JavaBasics;
+import java.util.*;
+public class Median {
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter size of array1: ");
+		int num1=scan.nextInt();
+		int arr1[]=new int[num1];
+		System.out.println("Enter elements of array 1: ");
+		for(int i=0;i<num1;i++)
+			arr1[i]=scan.nextInt();
+		System.out.println("Enter size of array2: ");
+		int num2=scan.nextInt();
+		int arr2[]=new int[num2];
+		System.out.println("Enter elements of array 2: ");
+		for(int i=0;i<num2;i++)
+			arr2[i]=scan.nextInt();
+		Median obj=new Median();
+		obj.medianOfArray(arr1, arr2, num1, num2);
+
+			
+		
+	}
+	   public void medianOfArray(int[]arr1,int[]arr2,int num1,int num2) {
+		  int num3=num1+num2 ,i,j,median;
+		   int arr3[]=new int[num3];
+		   for( i=0;i<num1;i++)
+			   arr3[i]=arr1[i];
+		   for( i=0;i<num2;i++)
+			   arr3[num1+i]=arr2[i];
+		   for( i=0;i<num3;i++) {
+			   for( j=i+1;j<num3;j++) {
+				   if(arr3[i]<arr3[j]) {
+					   int temp=0;
+					   temp=arr3[i];
+					   arr3[i]=arr3[j];
+					   arr3[j]=temp;
+				   } 
+			   }
+		   }
+			if(num3%2!=0) {
+				  median = arr3[num3/2];
+				  System.out.println("median: "+arr3 [median]);
+			}
+			else if(num3%2==0) {
+				  median = arr3[num3/2];
+				  System.out.println("median: "+arr3[ median]+0.5);
+			}
+		 
+	 }
+}
