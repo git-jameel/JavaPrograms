@@ -1,0 +1,141 @@
+import java.util.*;
+class BankGiftCard{
+	public static void main(String args[]){
+		System.out.println("1. Admin || 2. user..");
+		Scanner scan=new Scanner(System.in);
+	    int num=scan.nextInt();
+		Login obj1=new Login();  //object creation
+		switch(num){
+		case 1:
+			obj1.adminLogin();
+			break;
+		case 2:
+			//Login obj2=new Login();
+			UserLogin.signUp();
+			break;
+	}
+}
+}
+ class Login{
+	 Scanner scan=new Scanner(System.in);
+	String Ausername="Jameel";
+	String Apassword="Afsar@123";
+	 void adminLogin(){
+		System.out.println("Welcome Admin..");
+		System.out.println("Enter Admin Username: ");
+		String username=scan.next();
+		System.out.println("Enter Admin password");
+		String password=scan.next();
+		if(username.equals(Ausername)&&password.equals(Apassword)){
+			System.out.println("Login sucessfull");
+			Choose.select();
+		}
+		else {
+		System.out.println("username or password mismatch");
+		Login obj2=new Login();
+		obj2.adminLogin();
+		}
+	}
+}
+ class UserLogin{
+		static void signUp(){	
+		System.out.println("Signup first and then sign in..");
+		Scanner scan=new Scanner(System.in);		
+		System.out.println("Enter username..");
+		String Cusername=scan.next();
+		System.out.println("Enter password");
+		String Cpassword=scan.next();
+		if(Cpassword.length()>=8){
+			System.out.println("Password is strong.. \n signUp sucessfull");
+			System.out.println("Enter customer id..");
+			int cust=scan.nextInt();
+			UserLogin.signIn(Cusername,Cpassword,cust);
+		}
+		else{
+			System.out.println("password is too short sign up again..");
+			UserLogin.signUp();
+		}
+		}	
+	static void signIn(String Cusername,String Cpassword,int cust){
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter sinuped username..");
+		String Cusername1=scan.next();
+		System.out.println("Enter signuped password");
+		String Cpassword1=scan.next();
+		if(Cusername1.equals(Cusername)&&Cpassword1.equals(Cpassword)){
+			System.out.println("signIn sucessfull");
+			Choose.select();
+		}
+		else{
+			System.out.println("username or password mismatch...sign in again");
+			UserLogin.signIn(Cusername,Cpassword,cust);
+	}
+}
+}
+
+class Choose{
+	static void select(){
+	System.out.println("1. Create gift card \n 2. Topup \n 3. Transaction History \n 4. Block \n 5. Logout \n");
+	Scanner scan=new Scanner(System.in);
+	int ch=scan.nextInt();
+	switch(ch){
+		case 1:
+			Process.createGiftCard();
+			break;
+		case 2:
+			Process.topUp();
+			break;
+		case 3:
+			Process.transactionHistory();
+			break;
+		case 4:
+			//Process.block();
+			break;
+		case 5:
+			//	Process.logout();
+			break;
+	}
+		}
+}
+class Process{
+	static int id,ta;
+	static Scanner scan=new Scanner(System.in);  //------------------
+	static int cardn_arr[]=new int[3];  
+	static int pinn_arr[]=new int[3];
+	static int accbal_arr[]={1000,1000,1000};
+	static int gcbal_arr[]={100,100,100};  //----------------
+ 	static void createGiftCard(){
+		int j=1;
+		for(int i=0;i<3;i++){
+			cardn_arr[i]=100000-j*3;
+			pinn_arr[i]=999+j*2;
+			j++;
+		}
+		System.out.println("Card no. and Pin no. generated sucessfully...");
+		final int id[]=new int[3];
+		Choose.select();
+		//System.out.println(Arrays.toString(cardn_arr));
+		//System.out.println(Arrays.toString(pinn_arr));
+	}
+	static void topUp(){
+		System.out.println("Enter customer id:");
+		id=scan.nextInt();
+		System.out.println("Your Card no."+cardn_arr[id-1]+"\n"+"Your Pin no."+pinn_arr[id-1]);
+		System.out.println("Enter topup amount..");
+		ta=scan.nextInt();
+		accbal_arr[id-1]-=ta;
+		gcbal_arr[id-1]+=ta;
+		System.out.println("Topuped sucessfully");
+		Choose.select();
+	}
+	static void transactionHistory(){
+		System.out.println("Enter customer id:");
+		id=scan.nextInt();
+		System.out.println("Topuped amount: "+accbal_arr[1000-accbal_arr[id-1]]);
+		System.out.println("Current acc balance: "+ accbal_arr[id-1]);
+		System.out.println("Current giftcard balance: "+gcbal_arr[id-1]);
+	}
+	static void Block(){
+		
+	}
+	}
