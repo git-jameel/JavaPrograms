@@ -1,0 +1,62 @@
+package javaPrograms;
+import java.util.*;
+public class LiftModuleL3 {
+	int liftarr[]=new int[5];
+	public static void main(String[] args) {
+		LiftModuleL3 obj=new LiftModuleL3 ();
+		obj.displayLift();
+		obj.AssignLift();
+		obj.assignNearestLift();
+	}
+	void displayLift(){
+		System.out.println("Lift  : L1\tL2\tL3\tL4\tL5\t");
+		System.out.print("Floor : ");
+		for(int i=0;i<liftarr.length;i++)
+			System.out.print(liftarr[i]+"\t");
+	}
+	void AssignLift(){
+		System.out.println("\nEnter from floor and to floor.");
+		Scanner scan1=new Scanner(System.in);
+		int from=scan1.nextInt();
+		int to=scan1.nextInt();
+		System.out.println("Lift  : L1\tL2\tL3\tL4\tL5\t");
+		for(int i=0;i<liftarr.length;i++){
+			if(liftarr[i]==0){
+				liftarr[i]=to;
+				System.out.println("L"+(i+1)+" is assigned..........");
+				break;
+			}
+		}
+		
+		System.out.print("floor : ");
+		for(int i=0;i<liftarr.length;i++)
+			System.out.print(liftarr[i]+"\t");
+									
+		System.out.println("\nAssign lift again or not?  (1/2)");
+		int c=scan1.nextInt();
+		switch(c) {
+		case 1:
+			AssignLift();
+		case 2:
+			break;
+		}
+	}
+	void assignNearestLift() {
+		Scanner scan2=new Scanner(System.in);
+		int from=scan2.nextInt();
+		int to=scan2.nextInt();
+		System.out.println("Lift  : L1\tL2\tL3\tL4\tL5\t");
+		for(int i=0;i<liftarr.length;i++) {
+			int near=from-liftarr[i];
+			if(near<0)
+				near=-(near);
+			int next=from-liftarr[i+1];
+			if(next<0)
+				next=-(next);
+			if(from<next) 
+				near=from-liftarr[i];
+				System.out.println(i);
+			}
+		System.out.print("floor : ");
+		}
+	}
