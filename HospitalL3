@@ -1,0 +1,94 @@
+import java.util.*;
+public class HospitalManage{
+	int pid=99;
+	int i=0;
+	double doctime;
+	double outtime;
+	double mp=0.10;
+	double pharm=0.5;
+	int pid_arr[]=new int[3];
+	String name_arr[]=new String[3];
+	double time_arr[]=new double[3];
+	int waittime_arr[]=new int[3];
+	public static void main(String[] args){
+		HospitalManage obj=new HospitalManage();
+		obj.choose();
+	}
+	void choose(){
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Are you a new Patient or existing patient? (1 - New / 2 - Existing)...");
+		int c=scan.nextInt();
+		switch(c){
+			case 1:
+				createEntry();
+				break;
+			case 2:
+				checkEntry();
+				break;
+		}
+		
+	}
+	void checkEntry(){
+		Scanner scan1=new Scanner(System.in);
+		System.out.println("Enter Patient_id: ");
+		int uid=scan1.nextInt();
+		System.out.println("Enter Patient_name: ");
+		String uname=scan1.next();
+		for(int j=0;j<2;j++){
+			if(uid==pid_arr[j]&&uname.equals(name_arr[j])){
+				System.out.println("Already Registered...");
+				System.out.println("Enter Intime");
+				double uintime=scan1.nextDouble();
+				time_arr[j]=uintime;
+				System.out.println("Meet medical professionals..");
+				meetMP();
+			}
+			else 
+				continue;
+		}
+		System.out.println("You are not registered.. pls register");
+		createEntry();
+	}
+	void createEntry(){
+		Scanner scan1=new Scanner(System.in);
+		pid++;
+		pid_arr[i]=pid;
+		System.out.println("Patient ID created.."+pid);
+		System.out.println("Enter name: ");
+		String name=scan1.next();
+		name_arr[i]=name;
+		System.out.println("Enter InTime: ");
+		double time=scan1.nextDouble();
+		time_arr[i]=time;
+		i++;
+		System.out.println("Record created \n Meet medical professionals...");
+		meetMP();
+	}
+	void meetMP(){
+		System.out.println("meeting pro");
+		time_arr[i]+=mp;
+		System.out.println("meeting over..go to dcotor");
+		meetDoc();
+	}
+	void meetDoc(){
+		Scanner scan3=new Scanner(System.in);
+		System.out.println("Enter consulted time..");
+		doctime=scan3.nextDouble();
+		time_arr[i]+=doctime;
+		goPharm();
+	}
+	void goPharm(){
+		time_arr[i]+=pharm;
+		if(waittime_arr[i]==0)
+			printOutput();
+		else{
+			System.out.println("sorry for the inconvinience");
+			printOutput();
+		}
+	}
+	void printOutput(){
+		System.out.println("Patient ID \t Doctor time \t Out time \t Waiting Time");
+		System.out.println(pid_arr[i]+" \t "+doctime+" /t "+time_arr[i]+" \t "+"0");
+		choose();
+	}
+}
