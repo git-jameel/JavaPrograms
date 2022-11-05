@@ -2,14 +2,17 @@ import java.util.*;
 public class HospitalManage{
 	int pid=99;
 	int i=0;
-	double doctime;
-	double outtime;
-	double mp=0.10;
-	double pharm=0.5;
+	float doctime;
+	float intime;
+	float outtime;
+	float mp=(float) 0.10;
+	float pharm=(float)0.05;
 	int pid_arr[]=new int[3];
 	String name_arr[]=new String[3];
-	double time_arr[]=new double[3];
-	int waittime_arr[]=new int[3];
+	float time_arr[]=new float[3];
+	float waittime_arr[]=new float[3];
+	float doctime_arr[]=new float[3];
+	float intime_arr[]=new float[3];
 	public static void main(String[] args){
 		HospitalManage obj=new HospitalManage();
 		obj.choose();
@@ -38,7 +41,7 @@ public class HospitalManage{
 			if(uid==pid_arr[j]&&uname.equals(name_arr[j])){
 				System.out.println("Already Registered...");
 				System.out.println("Enter Intime");
-				double uintime=scan1.nextDouble();
+				float uintime=scan1.nextFloat();
 				time_arr[j]=uintime;
 				System.out.println("Meet medical professionals..");
 				meetMP();
@@ -58,14 +61,15 @@ public class HospitalManage{
 		String name=scan1.next();
 		name_arr[i]=name;
 		System.out.println("Enter InTime: ");
-		double time=scan1.nextDouble();
-		time_arr[i]=time;
-		i++;
+		intime_arr[i]=scan1.nextFloat();
+		time_arr[i]=intime;
+		System.out.println("Enter outtime...");
+		outtime=scan1.nextFloat();
 		System.out.println("Record created \n Meet medical professionals...");
 		meetMP();
 	}
 	void meetMP(){
-		System.out.println("meeting pro");
+		//System.out.println("meeting pro");
 		time_arr[i]+=mp;
 		System.out.println("meeting over..go to dcotor");
 		meetDoc();
@@ -73,22 +77,32 @@ public class HospitalManage{
 	void meetDoc(){
 		Scanner scan3=new Scanner(System.in);
 		System.out.println("Enter consulted time..");
-		doctime=scan3.nextDouble();
-		time_arr[i]+=doctime;
-		goPharm();
-	}
-	void goPharm(){
+		doctime_arr[i]=scan3.nextFloat();
+		time_arr[i]+=doctime_arr[i];
 		time_arr[i]+=pharm;
-		if(waittime_arr[i]==0)
-			printOutput();
+		waittime_arr[i]=outtime-time_arr[i];
+		if(waittime_arr[i]==0.00){
+			i++;
+			if(i<3)
+				choose(); 
+			else
+				printOutput();
+		}
 		else{
 			System.out.println("sorry for the inconvinience");
-			printOutput();
+			i++;
+			if(i<3){
+				//System.out.printf("%.2f",pid_arr[i],"\t\t %.2f",doctime_arr[i]," \t\t %.2f",intime_arr[i]," \t %.2f",time_arr[i],"\t %.2f",waittime_arr[i]);
+				choose(); 
+			}
+			else
+				printOutput();
 		}
 	}
 	void printOutput(){
-		System.out.println("Patient ID \t Doctor time \t Out time \t Waiting Time");
-		System.out.println(pid_arr[i]+" \t "+doctime+" /t "+time_arr[i]+" \t "+"0");
-		choose();
+		System.out.println("PatientID\tDoctortime\tIntime\tOuttime\t\tWaiting Time");
+		for(int i=0;i<3;i++){
+			System.out.printf("%.2f",pid_arr[i],"\t\t %.2f",doctime_arr[i]," \t\t %.2f",intime_arr[i]," \t %.2f",time_arr[i],"\t %.2f",waittime_arr[i]);
+		}
 	}
 }
