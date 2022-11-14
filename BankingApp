@@ -1,0 +1,145 @@
+import java.util.*;
+public class BankingApp{
+	 static int custid[]=new int[10];
+	 static int accno[]=new int[10];
+	 static String name[]=new String[10];
+	 static  int balance[]=new int[10];
+	 static String op[]=new String[10];
+	 static String ep[]=new String[10];
+	 static String s="";
+	 static int j=4;
+	 static Scanner scan=new Scanner(System.in);
+	public static void main(String args[]){
+		
+		custid[0]=11;		custid[1]=22;		custid[2]=33;		custid[3]=44;    //Default details
+		accno[0]=11011;		accno[1]=22022;		accno[2]=33033;		accno[3]=44044;
+		name[0]="Kumar";	name[1]="madhu";	name[2]="rahul";	name[3]="robin";
+		balance[0]=10000;	balance[1]=10000;	balance[2]=10000;	balance[3]=10000;
+		ep[0]="appipNb";	ep[1]="Cbolki";		ep[2]="Dbniuo";		ep[3]="Kbwb22";	
+		
+		System.out.println("1. Admin | 2. User");
+		Scanner scan=new Scanner(System.in);
+		int v=scan.nextInt();
+		switch(v){
+			case 1:
+				Admin.adminLogin();
+				break;
+			case 2:
+				User.authentication();
+				break;
+		}
+				
+	}
+}
+	class Admin extends BankingApp{
+	
+		static void adminLogin(){
+		Scanner scan=new Scanner(System.in);
+		String Username="Jameel";
+		String Password="Afsar@123";
+		System.out.println("Enter username..");
+		String uname=scan.next();
+		System.out.println("Enter password..");
+		String passw=scan.next();
+		if(Username.equals(uname)&&Password.equals(passw)){
+			System.out.println("Logged in sucessfully..\n ");
+			display();
+			System.out.println("Adding new customer..");
+			Admin.addNewCust();
+		}
+		else{
+			System.out.println("username or pwd mismatch.. Reenter");
+			Admin.addNewCust();
+		}
+	}
+	static void display(){
+				
+		System.out.println("Existing customer details..");
+		System.out.println("CustId\tAccNo\tName\tBalance\tEncryptedPass");
+		for(int i=0;i<4;i++)
+			System.out.println(custid[i]+"\t"+accno[i]+"\t"+name[i]+"\t"+balance[i]+"\t"+ep[i]+"\t\t");
+		System.out.println("----------------------------------------------------------------------------");
+
+	}
+	
+		public static void addNewCust(){
+		
+		System.out.println("Enter name: ");
+		String name1=scan.next();
+		name[j]=name1;
+		balance[j]=10000;
+		custid[j]=custid[j-1]+11;
+		accno[j]=accno[j-1]+11011;
+		System.out.println("Enter the password..");
+		String pwd=scan.next();
+		System.out.println("Re enter password..");
+		String pwd1=scan.next();
+		if(pwd.equals(pwd1)){
+			System.out.println("Correct password");
+			op[j]=pwd1;
+			encrypt(pwd1);
+			ep[j]=s;
+			j++;
+			System.out.println("Do you want to add new customer..(1 - yes /2 - display)");
+			int c=scan.nextInt();
+			switch(c){
+				case 1:
+					Admin.addNewCust();
+					break;
+				case 2:
+					System.out.println("CustId\tAccNo\tName\tBalance\tEncryptedPass");
+				for(int i=0;i<j;i++){
+					System.out.println(custid[i]+"\t"+accno[i]+"\t"+name[i]+"\t"+balance[i]+"\t"+ep[i]);	
+				}
+				User.authentication();
+				break;
+			}
+			
+		}
+		else{
+			System.out.println("Password mismatch  ...\n re enter name and password");
+			addNewCust();
+		}
+	}
+		static String encrypt(String pwd1){
+		char epass[]=pwd1.toCharArray();
+		for(int i=0;i<pwd1.length();i++){
+			epass[i]=(char) (pwd1.charAt(i)+1);
+		}
+		for(int i=0;i<epass.length;i++)
+			s+=epass[i];
+		return s;
+	}
+	}
+	class User extends BankingApp{
+	 static void authentication(){
+		System.out.println("Enter CustId");
+		int cid=scan.nextInt();
+		System.out.println("Enter password..");
+		String cpwd=scan.next();
+		for(int i=0;i<j;i++){
+			if(cid==custid[i]&&cpwd.equals(op[i])){
+			System.out.println("Login sucessfull..");
+			System.out.println("1. ATM Withdrawl\n 2. Deposit\n 3./Account Transfer\n");
+			int c=scan.nextInt();
+			switch(c){
+				case 1:
+					//atmWithdrawl();
+					break;
+				case 2:
+					//deposit();
+					break;
+				case 3:
+					//accountTransfer();
+					break;
+			}
+			}
+			else
+				continue;
+				
+		}
+	}
+	static void atmWithdrawl(){
+		System.out.println("cash...cash");
+	}
+	}
