@@ -1,4 +1,6 @@
+package JavaBasics;
 import java.util.*;
+import java.util.regex.*;
 public class BankingApp{
 	 static int custid[]=new int[10];
 	 static int accno[]=new int[10];
@@ -18,7 +20,6 @@ public class BankingApp{
 		ep[0]="appipNb";	ep[1]="Cbolki";		ep[2]="Dbniuo";		ep[3]="Kbwb22";	
 		
 		System.out.println("1. Admin | 2. User");
-		Scanner scan=new Scanner(System.in);
 		int v=scan.nextInt();
 		switch(v){
 			case 1:
@@ -34,7 +35,6 @@ public class BankingApp{
 	class Admin extends BankingApp{
 	
 		static void adminLogin(){
-		Scanner scan=new Scanner(System.in);
 		String Username="Jameel";
 		String Password="Afsar@123";
 		System.out.println("Enter username..");
@@ -63,7 +63,7 @@ public class BankingApp{
 	}
 	
 		public static void addNewCust(){
-		
+		boolean var;
 		System.out.println("Enter name: ");
 		String name1=scan.next();
 		name[j]=name1;
@@ -72,6 +72,11 @@ public class BankingApp{
 		accno[j]=accno[j-1]+11011;
 		System.out.println("Enter the password..");
 		String pwd=scan.next();
+//		pwd="^(?=.*[0-9])+(?=.*[a-z])+(?=.*[A-Z])+(?=.*[@#$%^&*])+(?.//s$)";
+//		Pattern p=p.compile(pwd);
+//		Matcher m=p.matcher(pwd);
+//		m.matches();
+
 		System.out.println("Re enter password..");
 		String pwd1=scan.next();
 		if(pwd.equals(pwd1)){
@@ -124,7 +129,7 @@ public class BankingApp{
 			int c=scan.nextInt();
 			switch(c){
 				case 1:
-					//atmWithdrawl();
+					atmWithdrawl();
 					break;
 				case 2:
 					//deposit();
@@ -134,9 +139,12 @@ public class BankingApp{
 					break;
 			}
 			}
-			else
+			else if(cid!=custid[i]&&!cpwd.equals(op[i]))
 				continue;
-				
+			else {
+				System.out.println("No record found..Re enter correctly..");
+				authentication();
+			}
 		}
 	}
 	static void atmWithdrawl(){
