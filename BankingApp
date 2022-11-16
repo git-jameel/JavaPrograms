@@ -1,4 +1,4 @@
-package JavaPrograms;
+package JavaBasics;
 
 import java.util.*;
 import java.util.regex.*;
@@ -95,6 +95,7 @@ class Admin extends BankingApp {
 }
 
 class User extends BankingApp {
+	static int m;
 	public static void userChoose() {
 		System.out.println(" 1.Create account \n 2.App Processes ");
 		int p = scan.nextInt();
@@ -234,12 +235,34 @@ class User extends BankingApp {
 		operationApp();
 	}
 	static void changePassword() {
-		int m;
+		boolean c=false;
 		System.out.println("Enter old password..");
 		String oldp=scan.next();
-		for(int i=0;i<j;i++)
-			if(oldp.equals(op[i]))
+		for(int i=0;i<j;i++) {
+			if(oldp.equals(op[i])) {
 				m=i;
+				c=true;
+			}
+		}
+		if(c==true) {
+				System.out.println("Enter new password");
+				String npass=scan.next();
+				if(validate(npass)) {
+					op[m]=npass;
+					ep[m]=encrypt(npass);
+					System.out.println(Arrays.toString(op));
+					System.out.println(Arrays.toString(ep));
+					operationApp();
+				}
+				else {
+					System.out.println("Enter a Strong password");
+					changePassword();
+				}		
+			}
+			else {
+				System.out.println("password incorrect enter your old password corectly..");
+				changePassword();
+			}
 				
 	} 
 	static void show() {
