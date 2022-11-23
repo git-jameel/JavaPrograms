@@ -1,0 +1,27 @@
+import java.util.*;
+public class Pattern {
+public static void main(String[] args) {
+	System.out.println("Enter the no.");
+	Scanner scan=new Scanner(System.in);
+	int n=scan.nextInt();
+	int p=n;
+	int arr[][]=new int[n][n];
+	int l=0;int limit=0;int r=n-1;
+	while(limit<n) {
+		for(int i=l;i<=r;i++) {
+			for(int j=0;j<=r;j++) {
+				if(i==l||i==r||j==l||j==r) {
+					arr[i][j]=n;
+				}
+			}
+		}
+		l++;limit++;n--;r--;
+	}
+	for(int i=0;i<p;i++) {
+		for(int j=0;j<p;j++) {
+			System.out.print(arr[i][j]+" ");
+		}
+		System.out.println();
+	}
+}
+}
