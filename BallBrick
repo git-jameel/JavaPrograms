@@ -1,11 +1,9 @@
-package javaPrograms;
+package JavaBasics;
 import java.util.*;
 public class BallBrick{
 	static int count=3;
 	 static Scanner scan=new Scanner(System.in);
 	public static void main(String args[]){
-	
-	
 	Jameel ja=new Jameel();
 		System.out.println("Enter the size of matrix..NxN");
 		int n=scan.nextInt();
@@ -32,14 +30,14 @@ public class BallBrick{
 }
 class Jameel extends BallBrick
 {
-	public void dummy(String arr[][]) {
+	 void dummy(String arr[][]) {
 	//BallBrick obj=new BallBrick();
 	display(arr);
 	input(arr);
 	shoot(arr);
 	}
 	
-	 public void display(String arr[][]){
+	  void display(String arr[][]){
 						for(int i=0;i<arr.length;i++){
 				for(int j=0;j<arr.length;j++){
 					System.out.print(arr[i][j]+" ");
@@ -49,7 +47,7 @@ class Jameel extends BallBrick
 				System.out.println("Ball count is :"+ count);
 	}
 	
-	 public void input(String arr[][]){		
+	  void input(String arr[][]){		
 			System.out.println("Enter brick position and brick type..");
 			int p=scan.nextInt();
 			int t=scan.nextInt();
@@ -67,7 +65,7 @@ class Jameel extends BallBrick
 					break;
 			}
 	}
-	public  int findBall(String arr[][]){
+	  int findBall(String arr[][]){
 		int x=0;
 		int i=arr.length-1;
 		for(int j=0;j<arr.length-1;j++)
@@ -75,10 +73,10 @@ class Jameel extends BallBrick
 				x=j;
 		return x;
 	}
-	public  void shoot(String arr[][]){
-		System.out.println("Enter the direction which ball need to tranverse..");
+	  void shoot(String arr[][]){
+		System.out.println("Enter the direction which ball need to tranverse..(st/ld/rd)");
 		String dir=scan.next();
-		BallBrick obj1=new BallBrick();
+		//BallBrick obj1=new BallBrick();
 		if(dir.equals("st")){
 				int j=arr.length/2;
 			for(int i=arr.length-1;i>0;i--){
@@ -121,6 +119,8 @@ class Jameel extends BallBrick
 	}
 
 }
+
+
 
 
 
