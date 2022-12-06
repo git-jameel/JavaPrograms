@@ -1,0 +1,28 @@
+package JavaBasics;
+import java.util.*;
+public class Basic {
+	int length;
+	int breath;
+	public Basic(int length,int breath) {
+		this.length=length;
+		this.breath=breath;
+	}
+	int area() {
+		int a=length*breath;
+		return a;
+	}
+			public static void main(String[] args) {
+				Scanner scan=new Scanner(System.in);
+				System.out.println("Enter 1st ");
+				int len=scan.nextInt();
+				int bre=scan.nextInt();
+		Basic obj=new Basic(len,bre);
+		System.out.println("area "+obj.area());
+		System.out.println("Enter 2st ");
+		len=scan.nextInt();
+		bre=scan.nextInt();
+		Basic obj1=new Basic(len,bre);
+		System.out.println("area"+obj1.area());
+	}
+}
+
