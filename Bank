@@ -1,0 +1,310 @@
+//package JavaPrograms;
+import java.util.*;
+import java.util.regex.*;
+
+public class BankAppNew {
+	public static void main(String args[]) {
+		Initial obj=new Initial();
+		obj.initialize();
+		obj.adminOrUser(obj.j);
+	}
+}
+class Initial{
+	 int custid[] = new int[10];
+	 int accno[] = new int[10];
+	 String name[] = new String[10];
+	 int balance[] = new int[10];
+	 String op[] = new String[10];
+	 String ep[] = new String[10];
+	 int j = 4;
+	 Scanner scan = new Scanner(System.in);
+	 void declare() {
+		 
+	 }
+	 void initialize(){
+		custid[0] = 11; accno[0] = 11011; name[0] = "Kumar"; balance[0] = 10000; ep[0] = "appipNb";
+		custid[1] = 22; accno[1] = 22022; name[1] = "madhu"; balance[1] = 20000; ep[1] = "Cbolki";
+		custid[2] = 33; accno[2] = 33033; name[2] = "rahul"; balance[2] = 30000; ep[2] = "Dbniuo";
+		custid[3] = 44; accno[3] = 44044; name[3] = "robin"; balance[3] = 40000; ep[3] = "Kbwb22";
+	}
+	public void adminOrUser(int j) {
+		System.out.println("1. Admin | 2. User");
+		int v = scan.nextInt();
+		Admin1 obj=new Admin1();
+		User1 obj1=new User1();
+		switch (v) {
+		case 1:
+			obj.adminLogin(j);
+			break;
+		case 2:
+			obj1.userChoose(j);
+			break;
+		case 3:
+			break;
+		}
+}
+}
+
+class Admin1 extends Initial {
+	 void adminLogin(int j) {
+
+		String Username = "Jameel";
+		String Password = "Afsar@123";
+		System.out.println("Enter username..");
+		String uname = scan.next();
+		System.out.println("Enter password..");
+		String passw = scan.next();
+		if (Username.equals(uname) && Password.equals(passw)) {
+			System.out.println("Logged in sucessfully..\n ");
+			System.out.println("1. Display \n2. exit");
+			int k = scan.nextInt();
+			switch (k) {
+			case 1:
+				initialize();
+				display(j);
+				break;
+			case 2:
+				break;
+			}
+		} else {
+			System.out.println("username or pwd mismatch.. Reenter");
+			adminLogin(j);
+		}
+	}
+
+	 void display(int j) {
+
+		System.out.println("Existing customer details..");
+		System.out.println("CustId\tAccNo\tName\tBalance\tEncryptedPass");
+		for (int i = 0; i < j; i++)
+			System.out.println(custid[i] + "\t" + accno[i] + "\t" + name[i] + "\t" + balance[i] + "\t" + ep[i]);
+		System.out.println("----------------------------------------------------------------------------");
+		adminOrUser(j);
+	}
+
+}
+
+class User1 extends Initial {
+	//int k=4;
+	 int m;
+	 int count=0;
+	 String Ttarr[]=new String[10];
+	 int Hamtarr[]=new int [10];
+	 int Bamtarr[]=new int[10];
+	  void userChoose(int j) {
+		System.out.println(" 1.Create account \n 2.App Processes ");
+		int p = scan.nextInt();
+		switch (p) {
+		case 1:
+			addNewCust(j);
+			break;
+		case 2:
+			authentication(j);
+			break;
+		}
+	}
+
+	public  void addNewCust(int j) {
+		System.out.println("Enter name: ");
+		String name1 = scan.next();
+		name[j] = name1;
+		balance[j] = 10000;
+		custid[j] = custid[j - 1] + 11;
+		accno[j] = accno[j - 1] + 11011;
+		System.out.println("Password should contain 1uppercase,1lowercase,1number,1specialchar and length of 6-10");
+		System.out.println("Enter the password..");
+		String pwd = scan.next();
+		if (validate(pwd)) {
+			System.out.println("Re enter password..");
+			String pwd1 = scan.next();
+			if (pwd.equals(pwd1)) {
+				System.out.println("Correct password");
+				op[j] = pwd1;
+				ep[j] = (encrypt(pwd1));
+				j++;
+				System.out.println("SignedUp sucessfully...");
+				System.out.println("CustId\tAccNo\tName\tBalance\tEncryptedPass");
+				System.out.println(custid[j-1] + "\t" + accno[j-1] + "\t" + name[j-1] + "\t" + balance[j-1] + "\t" + ep[j-1]);
+				Ttarr[count]="Opening";
+				Hamtarr[count]=balance[j-1];
+				Bamtarr[count]=balance[j-1];
+				count++;
+				authentication(j);
+			} else {
+				System.out.println("UnStrong password .. reenter");
+				addNewCust(j);
+			}
+
+			}
+		}
+	 boolean validate(String pwd) {
+		boolean var;
+		String pass = "^(?=.*[0-9])" + "(?=.*[a-z])" + "(?=.*[A-Z])" + "(?=.*[@#$!*])" + "(?=\\S+$).{6,10}";
+		Pattern p = Pattern.compile(pass);
+		Matcher m = p.matcher(pwd);
+		var = m.matches();
+		return var;
+	}
+
+	private String encrypt(String pwd1) {
+		String s = "";
+		char epass[] = pwd1.toCharArray();
+		for (int i = 0; i < pwd1.length(); i++) {
+			if(epass[i]=='z')
+				epass[i]='a';
+			else if(epass[i]=='Z')
+				epass[i]='A';
+			epass[i] = (char)(epass[i] + 1);
+		}
+		for (int i = 0; i < epass.length; i++)
+			s += epass[i];
+		return s;
+	}
+
+	 void authentication(int j) {
+		System.out.println("SinIn..");
+		System.out.println("Enter CustId");
+		int cid = scan.nextInt();
+		System.out.println("Enter password..");
+		String cpwd = scan.next();
+		for (int i = 0; i < j; i++) {
+			if (cid == custid[i] && cpwd.equals(op[i])) {
+				System.out.println("Login sucessfull..");
+				operationApp(j);
+			}
+			else if (cid != custid[i] && !cpwd.equals(op[i]))
+				continue;
+			else {
+				System.out.println("No record found..Re enter correctly..");
+				authentication(j);
+			}
+			}
+	}
+			 void operationApp(int j) {
+				System.out.println(" 1. ATM Withdrawl\n 2. Deposit\n 3. Account Transfer\n 4. Change Password\n 5. show\n 6. showHistory\n 7. Logout");
+				int c = scan.nextInt();
+				switch (c) {
+				case 1:
+					atmWithdrawl(j);
+					break;
+				case 2:
+					deposit(j);
+					break;
+				case 3:
+					accountTransfer(j);
+					break;
+				case 4:
+					changePassword(j);
+					break;
+				case 5:
+					show(j);
+					break;
+				case 6:
+					showHistory(j);
+					break;
+				case 7:
+					adminOrUser(j);
+					break;
+				}
+			} 
+	 void deposit(int j) {
+		System.out.println("Enter the deposit amount..");
+		int da=scan.nextInt();
+		balance[j-1]+=da;
+		System.out.println("Deposited...");
+		Ttarr[count]="Cash Deposit";
+		Hamtarr[count]=da;
+		Bamtarr[count]=balance[j-1];
+		count++;
+		operationApp(j);
+	}
+	 void atmWithdrawl(int j) {
+		System.out.println("Enter withdraw amount..");
+		int wa=scan.nextInt();
+		if(balance[j-1]-wa>=1000) {
+			balance[j-1]-=wa;
+			System.out.println("Withdrawed...");
+			Ttarr[count]="Atm Withdraw";
+			Hamtarr[count]=wa;
+			Bamtarr[count]=balance[j-1];
+			count++;
+			operationApp(j);
+		}
+		else {
+			System.out.println("Insufficent balance.. Min acc balance 1000");
+			operationApp(j);
+		}
+	}
+	 void accountTransfer(int j) {
+		int k=0;
+		System.out.println("Enter account no..");
+		int ano=scan.nextInt();
+		System.out.println("Enter amount to be transfered..");
+		int ta=scan.nextInt();
+		for(int i=0;i<j;i++) {
+			if(ano==accno[i])
+				k=i;
+		}
+		balance[j-1]-=ta;
+		balance[k]+=ta;
+		System.out.println("Transfered sucessfully to..."+ano);
+		Ttarr[count]="Transfer";
+		Hamtarr[count]=ta;
+		Bamtarr[count]=balance[j-1];
+		count++;
+		operationApp(j);
+	}
+	 void changePassword(int j) {
+		boolean c=false;
+		System.out.println("Enter old password..");
+		String oldp=scan.next();
+		for(int i=0;i<j;i++) {
+			if(oldp.equals(op[i])) {
+				m=i;
+				c=true;
+			}
+		}
+		if(c==true) {
+				System.out.println("Enter new password");
+				String npass=scan.next();
+				if(validate(npass)) {
+					op[m]=npass;
+					ep[m]=encrypt(npass);
+					System.out.println("Password changed sucessfully..");
+					operationApp(j);
+				}
+				else {
+					System.out.println("Enter a Strong password");
+					changePassword(j);
+				}		
+			}
+			else {
+				System.out.println("password incorrect enter your old password corectly..");
+				changePassword(j);
+			}
+
+	} 
+	 void show(int j) {
+		System.out.println("CustId\tAccNo\tName\tBalance\tEncryptedPass");
+		System.out.println(custid[j-1] + "\t" + accno[j-1] + "\t" + name[j-1] + "\t" + balance[j-1] + "\t" + ep[j-1]);
+		operationApp(j);
+	}
+	 void showHistory(int j){
+		System.out.println("Account Statement\nName: "+name[j-1]+"\n"+"accno: "+accno[j-1]+"\n"+"custid: "+custid[j-1]+"\n");
+		System.out.println("Transid\t TransType\tAmount\tBalance");
+		for(int i=0;i<count;i++)
+		System.out.println((i+1)+"  \t  "+Ttarr[i]+" \t "+Hamtarr[i]+" \t "+Bamtarr[i]+" \t ");
+		operationApp(j);
+	}
+}
+	/*static void fetchTopCust(int j){
+		int max=balance[0];
+		int k;
+		for(int i=0;i<balance.length;i++){
+			if(balance[i]>max]){
+			max=balance[i];
+			}
+			if(i==balance.length)
+				k=i;
+		}
+	}*/
