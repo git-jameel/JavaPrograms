@@ -1,0 +1,204 @@
+package JavaPrograms;
+
+import java.util.*;
+import java.util.regex.*;
+public class ZcoinL3{
+	public static void main(String args[]){
+		Login login=new Login();
+		login.choose();
+	}
+}
+	class Details1{       // details class
+		String name;
+		String email;
+		String mnumber;
+		int hid;
+		String password;
+		int rcdep;
+		int zid;
+		public Details1(String name,String email,String mnumber,int hid,String password,int rcdep,int zid){
+			this.name=name;
+			this.email=email;
+			this.mnumber=mnumber;
+			this.hid=hid;
+			this.password=password;
+			this.rcdep=rcdep;
+			this.zid=zid;
+		}
+		public Details1(String name,String email,String mnumber,int hid,int rcdep,String password,int zid){
+			this.name=name;
+			this.email=email;
+			this.mnumber=mnumber;
+			this.hid=hid;
+			this.password=password;
+			this.rcdep=rcdep;
+			this.zid=zid;
+		}
+		public String toString(){
+			return name+"\t"+email+"\t"+mnumber+"\t"+hid+"\t"+password+"\t"+rcdep+"\t";
+		}
+	}
+	class Login {    //login choose
+
+		Scanner scan=new Scanner(System.in);
+		void choose(){
+			System.out.println("1. ZE login 2. User");
+			int n=scan.nextInt();
+			switch(n){
+				case 1:
+				ZE obj=new ZE();
+				obj.adminLogin();
+				break;
+				
+				case 2:
+				Userr user=new Userr();
+				user.userChoose();
+				break;
+			}
+		}
+	}
+	class ZE  {        //(ZEmployee) login
+		Scanner scan=new Scanner(System.in);
+		static ArrayList<Details1> app=new ArrayList<>();
+		static ArrayList<Details1> arr=new ArrayList<>();
+	void adminLogin(){
+		String email="Zeadmin@gmail";
+		String pass="Afsar@123";
+		System.out.println("Welcome ZE \n Enter the email_id: ");
+		String aemail=scan.nextLine();
+		System.out.println("Enter the password: ");
+		String apass=scan.nextLine();
+		if(aemail.equals(email)&&apass.equals(pass)){
+			System.out.println("Login successfull.... \n 1. User requests 2. Transaction detail 3. ");
+			int c=scan.nextInt();
+			switch(c){
+				case 1:
+				approval(app,arr);
+				break;
+				case 2:
+				//transdetails();
+				break;
+			}
+			Login login1=new Login();
+			login1.choose();
+		}
+		else{
+			System.out.println("email or password incorrect retype....");
+			adminLogin();
+		}
+	}
+	
+	protected boolean approval(ArrayList<Details1> app,ArrayList<Details1> arr ){  //approval
+		boolean res=false;
+		System.out.println("Admin u want to approve ");
+		show(app,arr);
+		System.out.println("Enter Human_ID u want to approve or remove");
+		int humid=scan.nextInt();
+		for(int i=0;i<arr.size();i++)
+			if(arr.get(i).hid==humid) {
+				System.out.println("you want to approve or reject.. (1. Approve / 2.Reject)");
+				int a=scan.nextInt();
+				if(a==1) {
+					System.out.println("Your accoutn is approved..");
+					res= true;
+				}
+				else if(a==2) {
+					System.out.println("Your account is rejected..");
+					arr.remove(i);
+				}
+					
+			}
+		return res;
+	}
+	
+	private void show(ArrayList<Details1> app,ArrayList<Details1> arr) {       //show
+		System.out.println("\tName\tEmail\tMob.no.\tHid\tPassword\tRcdep\t");
+		for(int i=0;i<arr.size();i++)
+			System.out.println(arr.get(i));
+	}
+	}
+	
+	class Userr extends ZE {		//user login
+	
+	Scanner scan=new Scanner(System.in);
+	static int k=0;
+	static int Zid=111;
+	void userChoose() {
+		System.out.println("If u are a new user SignUp by creating account first or else SignIn \n 1.Signup 2.SignIn");
+		int v=scan.nextInt();
+		switch(v) {
+		case 1:
+			signUp();
+			break;
+		case 2:
+			System.out.println("Enter Zid..");
+			int szid=scan.nextInt();
+			System.out.println("Enter password...");
+			String spass=scan.next();
+			signIn(szid,spass);
+			break;
+		}
+	}
+		
+		void signUp(){
+			System.out.println("Enter FullName");
+			String uname=scan.next();
+			System.out.println("Enter MobileNumber");
+			String unumber=scan.next();
+			System.out.println("Enter HumanId");
+			int hid=scan.nextInt();
+			System.out.println("Enter DepositAmt");
+			int rcdep=scan.nextInt();
+			System.out.println("Enter email_id...");
+			String uemail=scan.next();
+			int zid=0;
+			password(uname,unumber,hid,rcdep,uemail,zid);
+		}
+			void password(String uname,String unumber,int hid,int rcdep,String uemail,int zid){
+			System.out.println("Enter password..\n password should not be ur name,email,mobileno. and should contains alphanumeric,specialchar and length 8...");
+			String upass=scan.next();
+			boolean crt=validate(upass);
+			if(crt==true){
+				System.out.println("Strong password..\n signup sucessfull \n wait for ZE approval...");
+				//app.add(new Details1(uname,uemail,unumber,hid,upass,rcdep,zid));
+				arr.add(k,new Details1(uname,uemail,unumber,hid,rcdep,upass,zid));
+				System.out.println(arr.get(k));
+				ZE obj1=new ZE();
+				Login login1=new Login();
+				login1.choose();
+				boolean approv=obj1.approval(app,arr);
+				if(approv) {
+					System.out.println("Your zid is..."+zid+"\n use this to signin...");
+					arr.get(k).zid=Zid;
+					k++;
+					signIn(Zid,upass);
+				}
+				else {
+					arr.remove(k);
+					login1.choose();
+				}
+			}
+			else{
+				System.out.println("weak password retry...");
+				password(uname,unumber,hid,rcdep,uemail,zid);
+			}
+			}
+			
+		void signIn(int zid,String upass){
+			System.out.println("Enter Zid..");
+			int szid=scan.nextInt();
+			System.out.println("Enter password...");
+			String spass=scan.next();
+			
+			
+		}
+		boolean validate(String upass){
+			//if((upass.equals(name))||(upass.equals(email))||(upass.equals(mnumber)){
+				
+		String regex="^(?=.*[a-z])+(?=.*[0-9])+(?=.*[A-Z])+(?=.*[!@#$%&*%])+(?=[\\S+$]).{8,20}$";
+		Pattern p=Pattern.compile(regex);
+		Matcher m=p.matcher(upass);
+		boolean var=m.matches();
+		return var;
+		}
+	}
